@@ -2,6 +2,7 @@
 
 namespace ProgrammatorDev\FluentValidator;
 
+use ProgrammatorDev\FluentValidator\Exception\NoSuchConstraintException;
 use Symfony\Component\Validator\Constraint;
 
 class ConstraintFactory
@@ -18,8 +19,8 @@ class ConstraintFactory
             }
         }
 
-        throw new \Exception(
-            sprintf('"%s" constraint does not exist.', $constraintName)
+        throw new NoSuchConstraintException(
+            sprintf('Constraint "%s" does not exist.', $constraintName)
         );
     }
 }

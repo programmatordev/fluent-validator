@@ -2,7 +2,9 @@
 
 namespace ProgrammatorDev\FluentValidator;
 
+use ProgrammatorDev\FluentValidator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 
 class FluentValidator
@@ -23,18 +25,40 @@ class FluentValidator
     public function __call(string $constraintName, array $arguments = []): self
     {
         $constraintFactory = new ConstraintFactory();
+        $constraint = $constraintFactory->create($constraintName, $arguments);
 
-        $this->addConstraint($constraintFactory->create($constraintName, $arguments));
+        $this->addConstraint($constraint);
 
         return $this;
     }
 
-    public function validate(mixed $value): bool
+    private function runValidation(mixed $value): ConstraintViolationListInterface
     {
         $validator = Validation::createValidator();
-        $constraintViolationList = $validator->validate($value, $this->constraints);
 
-        dd($constraintViolationList);
+        return $validator->validate($value, $this->constraints);
+    }
+
+    public function validate(mixed $value): ConstraintViolationListInterface
+    {
+        return $this->runValidation($value);
+    }
+
+    public function assert(mixed $value): void
+    {
+        $violations = $this->runValidation($value);
+
+        if ($violations->count() > 0) {
+            $message = $violations->get(0)->getMessage();
+            throw new ValidationFailedException($message, $value, $violations);
+        }
+    }
+
+    public function isValid(mixed $value): bool
+    {
+        $violations = $this->runValidation($value);
+
+        return $violations->count() === 0;
     }
 
     public function getConstraints(): array
