@@ -4,6 +4,7 @@ namespace ProgrammatorDev\FluentValidator;
 
 use ProgrammatorDev\FluentValidator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 
@@ -32,31 +33,44 @@ class FluentValidator
         return $this;
     }
 
-    private function runValidation(mixed $value): ConstraintViolationListInterface
+    private function runValidation(mixed $value, ?string $name = null, array|null|string|GroupSequence $groups = null): ConstraintViolationListInterface
     {
-        $validator = Validation::createValidator();
+        $validator = Validation::createValidatorBuilder()
+            ->getValidator()
+            ->startContext();
 
-        return $validator->validate($value, $this->constraints);
+        if ($name !== null) {
+            $validator = $validator->atPath($name);
+        }
+
+        $validator = $validator->validate($value, $this->constraints, $groups);
+
+        return $validator->getViolations();
     }
 
-    public function validate(mixed $value): ConstraintViolationListInterface
+    public function validate(mixed $value, ?string $name = null, null|array|string|GroupSequence $groups = null): ConstraintViolationListInterface
     {
-        return $this->runValidation($value);
+        return $this->runValidation($value, $name, $groups);
     }
 
-    public function assert(mixed $value): void
+    public function assert(mixed $value, ?string $name = null, null|array|string|GroupSequence $groups = null): void
     {
-        $violations = $this->runValidation($value);
+        $violations = $this->runValidation($value, $name, $groups);
 
         if ($violations->count() > 0) {
             $message = $violations->get(0)->getMessage();
+
+            if ($name !== null) {
+                $message = sprintf('%s: %s', $name, $message);
+            }
+
             throw new ValidationFailedException($message, $value, $violations);
         }
     }
 
-    public function isValid(mixed $value): bool
+    public function isValid(mixed $value, null|array|string|GroupSequence $groups = null): bool
     {
-        $violations = $this->runValidation($value);
+        $violations = $this->runValidation($value, groups: $groups);
 
         return $violations->count() === 0;
     }
