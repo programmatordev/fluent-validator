@@ -13,6 +13,9 @@ class FluentValidator
     /** @var Constraint[] */
     private array $constraints;
 
+    /** @var string[] */
+    private static array $namespaces = [];
+
     private static function create(): self
     {
         return new self();
@@ -26,8 +29,12 @@ class FluentValidator
     public function __call(string $constraintName, array $arguments = []): self
     {
         $constraintFactory = new ConstraintFactory();
-        $constraint = $constraintFactory->create($constraintName, $arguments);
 
+        foreach (self::$namespaces as $namespace) {
+            $constraintFactory->addNamespace($namespace);
+        }
+
+        $constraint = $constraintFactory->create($constraintName, $arguments);
         $this->addConstraint($constraint);
 
         return $this;
@@ -40,12 +47,12 @@ class FluentValidator
             ->startContext();
 
         if ($name !== null) {
-            $validator = $validator->atPath($name);
+            $validator->atPath($name);
         }
 
-        $validator = $validator->validate($value, $this->constraints, $groups);
+        $context = $validator->validate($value, $this->constraints, $groups);
 
-        return $validator->getViolations();
+        return $context->getViolations();
     }
 
     public function validate(mixed $value, ?string $name = null, null|array|string|GroupSequence $groups = null): ConstraintViolationListInterface
@@ -85,5 +92,10 @@ class FluentValidator
         $this->constraints[] = $constraint;
 
         return $this;
+    }
+
+    public static function addNamespace(string $namespace): void
+    {
+        self::$namespaces[] = $namespace;
     }
 }
