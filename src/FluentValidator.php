@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FluentValidator
 {
@@ -15,6 +16,8 @@ class FluentValidator
 
     /** @var string[] */
     private static array $namespaces = [];
+
+    private static ?TranslatorInterface $translator = null;
 
     private static function create(): self
     {
@@ -42,15 +45,19 @@ class FluentValidator
 
     private function runValidation(mixed $value, ?string $name = null, array|null|string|GroupSequence $groups = null): ConstraintViolationListInterface
     {
-        $validator = Validation::createValidatorBuilder()
-            ->getValidator()
-            ->startContext();
+        $builder = Validation::createValidatorBuilder();
 
-        if ($name !== null) {
-            $validator->atPath($name);
+        if (self::$translator !== null) {
+            $builder->setTranslator(self::$translator);
         }
 
-        $context = $validator->validate($value, $this->constraints, $groups);
+        $context = $builder->getValidator()->startContext();
+
+        if ($name !== null) {
+            $context->atPath($name);
+        }
+
+        $context->validate($value, $this->constraints, $groups);
 
         return $context->getViolations();
     }
@@ -97,5 +104,10 @@ class FluentValidator
     public static function addNamespace(string $namespace): void
     {
         self::$namespaces[] = $namespace;
+    }
+
+    public static function setTranslator(?TranslatorInterface $translator): void
+    {
+        self::$translator = $translator;
     }
 }
