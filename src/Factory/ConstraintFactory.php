@@ -1,6 +1,6 @@
 <?php
 
-namespace ProgrammatorDev\FluentValidator;
+namespace ProgrammatorDev\FluentValidator\Factory;
 
 use ProgrammatorDev\FluentValidator\Exception\InvalidConstraintException;
 use ProgrammatorDev\FluentValidator\Exception\NoSuchConstraintException;

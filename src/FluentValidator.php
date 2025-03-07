@@ -3,6 +3,7 @@
 namespace ProgrammatorDev\FluentValidator;
 
 use ProgrammatorDev\FluentValidator\Exception\ValidationFailedException;
+use ProgrammatorDev\FluentValidator\Factory\ConstraintFactory;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\GroupSequence;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
