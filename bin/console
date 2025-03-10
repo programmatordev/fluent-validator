@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+
+<?php
+
+use ProgrammatorDev\FluentValidator\Command\CreateChainedInterfaceCommand;
+use ProgrammatorDev\FluentValidator\Command\CreateStaticInterfaceCommand;
+use ProgrammatorDev\FluentValidator\Command\CreateInterfacesCommand;
+use Symfony\Component\Console\Application;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$app = new Application();
+
+$app->add(new CreateStaticInterfaceCommand());
+$app->add(new CreateChainedInterfaceCommand());
+$app->add(new CreateInterfacesCommand());
+
+$app->run();

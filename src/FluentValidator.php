@@ -10,6 +10,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/** @mixin StaticInterface */
 class FluentValidator
 {
     /** @var Constraint[] */
@@ -44,7 +45,11 @@ class FluentValidator
         return $this;
     }
 
-    private function runValidation(mixed $value, ?string $name = null, array|null|string|GroupSequence $groups = null): ConstraintViolationListInterface
+    private function runValidation(
+        mixed $value,
+        ?string $name = null,
+        array|null|string|GroupSequence $groups = null
+    ): ConstraintViolationListInterface
     {
         $builder = Validation::createValidatorBuilder();
 
@@ -63,12 +68,20 @@ class FluentValidator
         return $context->getViolations();
     }
 
-    public function validate(mixed $value, ?string $name = null, null|array|string|GroupSequence $groups = null): ConstraintViolationListInterface
+    public function validate(
+        mixed $value,
+        ?string $name = null,
+        string|GroupSequence|array|null $groups = null
+    ): ConstraintViolationListInterface
     {
         return $this->runValidation($value, $name, $groups);
     }
 
-    public function assert(mixed $value, ?string $name = null, null|array|string|GroupSequence $groups = null): void
+    public function assert(
+        mixed $value,
+        ?string $name = null,
+        string|GroupSequence|array|null $groups = null
+    ): void
     {
         $violations = $this->runValidation($value, $name, $groups);
 
@@ -83,7 +96,10 @@ class FluentValidator
         }
     }
 
-    public function isValid(mixed $value, null|array|string|GroupSequence $groups = null): bool
+    public function isValid(
+        mixed $value,
+        string|GroupSequence|array|null $groups = null
+    ): bool
     {
         $violations = $this->runValidation($value, groups: $groups);
 
@@ -95,11 +111,9 @@ class FluentValidator
         return $this->constraints;
     }
 
-    public function addConstraint(Constraint $constraint): self
+    private function addConstraint(Constraint $constraint): void
     {
         $this->constraints[] = $constraint;
-
-        return $this;
     }
 
     public static function addNamespace(string $namespace): void
