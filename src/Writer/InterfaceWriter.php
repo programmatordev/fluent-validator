@@ -4,8 +4,6 @@ namespace ProgrammatorDev\FluentValidator\Writer;
 
 class InterfaceWriter
 {
-    private const INDENT = '    ';
-
     private \SplFileObject $file;
 
     public function __construct(private readonly string $interfaceName)
@@ -14,9 +12,14 @@ class InterfaceWriter
         $this->file = new \SplFileObject($filename, 'w');
     }
 
-    public function writeLine(?string $line = null): void
+    public function writeLine(string $line = ''): void
     {
         $this->file->fwrite($line . PHP_EOL);
+    }
+
+    public function writeIndent(int $num = 1): void
+    {
+        $this->file->fwrite(str_repeat('    ', $num));
     }
 
     /**
@@ -25,30 +28,42 @@ class InterfaceWriter
      */
     public function writeMethod(string $name, array $parameters = [], bool $isStatic = false): void
     {
-        $this->writeLine(self::INDENT . sprintf(
-            $isStatic ? 'public static function %s(' : 'public function %s(',
-            $name
-        ));
+        $this->writeIndent();
+        $this->writeLine(
+            sprintf(
+                $isStatic ? 'public static function %s(' : 'public function %s(',
+                $name
+            )
+        );
 
         foreach ($parameters as $parameter) {
+            $parameterType = $this->formatType((string) $parameter->getType());
+
+            $this->writeIndent(2);
+
             if ($parameter->isOptional()) {
-                $this->writeLine(self::INDENT . self::INDENT . sprintf(
-                    '%s $%s = %s,',
-                    $this->formatType((string) $parameter->getType()),
-                    $parameter->getName(),
-                    $this->formatValue($parameter->getDefaultValue())
-                ));
+                $this->writeLine(
+                    sprintf(
+                        '%s $%s = %s,',
+                        $parameterType,
+                        $parameter->getName(),
+                        $this->formatValue($parameter->getDefaultValue())
+                    )
+                );
             }
             else {
-                $this->writeLine(self::INDENT . self::INDENT . sprintf(
-                    '%s $%s,',
-                    $this->formatType((string) $parameter->getType()),
-                    $parameter->getName()
-                ));
+                $this->writeLine(
+                    sprintf(
+                        '%s $%s,',
+                        $parameterType,
+                        $parameter->getName()
+                    )
+                );
             }
         }
 
-        $this->writeLine(self::INDENT . '): ChainedInterface;');
+        $this->writeIndent();
+        $this->writeLine('): ChainedInterface;');
         $this->writeLine();
     }
 
