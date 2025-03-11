@@ -8,7 +8,7 @@ interface ChainedValidatorInterface
         mixed $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function atLeastOneOf(
         mixed $constraints = null,
@@ -17,7 +17,7 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?string $messageCollection = null,
         ?bool $includeInternalMessages = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function bic(
         ?array $options = null,
@@ -28,21 +28,21 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         ?string $mode = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function blank(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function callback(
         callable|array|string|null $callback = null,
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function cardScheme(
         array|string|null $schemes,
@@ -50,19 +50,19 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function cascade(
         array|string|null $exclude = null,
         ?array $options = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function charset(
         array|string $encodings = [],
         string $message = 'The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.',
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function choice(
         array|string $options = [],
@@ -79,7 +79,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         ?bool $match = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function cidr(
         ?array $options = null,
@@ -90,7 +90,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
          $payload = null,
         ?callable $normalizer = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function collection(
         mixed $fields = null,
@@ -100,7 +100,7 @@ interface ChainedValidatorInterface
         ?bool $allowMissingFields = null,
         ?string $extraFieldsMessage = null,
         ?string $missingFieldsMessage = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function count(
         array|int|null $exactly = null,
@@ -114,7 +114,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function country(
         ?array $options = null,
@@ -122,7 +122,7 @@ interface ChainedValidatorInterface
         ?bool $alpha3 = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function cssColor(
         array|string $formats = [],
@@ -130,21 +130,21 @@ interface ChainedValidatorInterface
         ?array $groups = null,
          $payload = null,
         ?array $options = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function currency(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function date(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function dateTime(
         array|string|null $format = null,
@@ -152,11 +152,11 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function disableAutoMapping(
         ?array $options = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function divisibleBy(
         mixed $value = null,
@@ -165,7 +165,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function email(
         ?array $options = null,
@@ -174,11 +174,11 @@ interface ChainedValidatorInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function enableAutoMapping(
         ?array $options = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function equalTo(
         mixed $value = null,
@@ -187,7 +187,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function expression(
         \Symfony\Component\ExpressionLanguage\Expression|array|string|null $expression,
@@ -197,7 +197,7 @@ interface ChainedValidatorInterface
         mixed $payload = null,
         array $options = [],
         ?bool $negate = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function expressionSyntax(
         ?array $options = null,
@@ -206,7 +206,7 @@ interface ChainedValidatorInterface
         ?array $allowedVariables = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function file(
         ?array $options = null,
@@ -232,7 +232,7 @@ interface ChainedValidatorInterface
         mixed $payload = null,
         array|string|null $extensions = null,
         ?string $extensionsMessage = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function greaterThan(
         mixed $value = null,
@@ -241,7 +241,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function greaterThanOrEqual(
         mixed $value = null,
@@ -250,7 +250,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function hostname(
         ?array $options = null,
@@ -258,14 +258,14 @@ interface ChainedValidatorInterface
         ?bool $requireTld = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function iban(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function identicalTo(
         mixed $value = null,
@@ -274,7 +274,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function image(
         ?array $options = null,
@@ -323,7 +323,7 @@ interface ChainedValidatorInterface
         ?string $corruptedMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function ip(
         ?array $options = null,
@@ -332,28 +332,28 @@ interface ChainedValidatorInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function isFalse(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function isNull(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function isTrue(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function isbn(
         array|string|null $type = null,
@@ -364,14 +364,14 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function isin(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function issn(
         ?array $options = null,
@@ -380,14 +380,14 @@ interface ChainedValidatorInterface
         ?bool $requireHyphen = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function json(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function language(
         ?array $options = null,
@@ -395,7 +395,7 @@ interface ChainedValidatorInterface
         ?bool $alpha3 = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function length(
         array|int|null $exactly = null,
@@ -411,7 +411,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function lessThan(
         mixed $value = null,
@@ -420,7 +420,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function lessThanOrEqual(
         mixed $value = null,
@@ -429,7 +429,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function locale(
         ?array $options = null,
@@ -437,14 +437,14 @@ interface ChainedValidatorInterface
         ?bool $canonicalize = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function luhn(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function macAddress(
         string $message = 'This value is not a valid MAC address.',
@@ -452,21 +452,21 @@ interface ChainedValidatorInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function negative(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function negativeOrZero(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function noSuspiciousCharacters(
         ?array $options = null,
@@ -479,7 +479,7 @@ interface ChainedValidatorInterface
         ?array $locales = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function notBlank(
         ?array $options = null,
@@ -488,7 +488,7 @@ interface ChainedValidatorInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function notCompromisedPassword(
         ?array $options = null,
@@ -497,7 +497,7 @@ interface ChainedValidatorInterface
         ?bool $skipOnError = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function notEqualTo(
         mixed $value = null,
@@ -506,7 +506,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function notIdenticalTo(
         mixed $value = null,
@@ -515,20 +515,20 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function notNull(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function optional(
         mixed $options = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function passwordStrength(
         ?array $options = null,
@@ -536,21 +536,21 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         ?string $message = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function positive(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function positiveOrZero(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function range(
         ?array $options = null,
@@ -565,7 +565,7 @@ interface ChainedValidatorInterface
         ?string $maxPropertyPath = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function regex(
         array|string|null $pattern,
@@ -576,19 +576,19 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function required(
         mixed $options = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function sequentially(
         mixed $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function time(
         ?array $options = null,
@@ -596,7 +596,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         ?bool $withSeconds = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function timezone(
         array|int|null $zone = null,
@@ -606,11 +606,11 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function traverse(
         array|bool|null $traverse = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function type(
         array|string|null $type,
@@ -618,7 +618,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function ulid(
         ?array $options = null,
@@ -626,7 +626,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
         ?string $format = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function unique(
         ?array $options = null,
@@ -636,7 +636,7 @@ interface ChainedValidatorInterface
         mixed $payload = null,
         array|string|null $fields = null,
         ?string $errorPath = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function url(
         ?array $options = null,
@@ -648,7 +648,7 @@ interface ChainedValidatorInterface
         mixed $payload = null,
         ?bool $requireTld = null,
         ?string $tldMessage = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function uuid(
         ?array $options = null,
@@ -658,14 +658,14 @@ interface ChainedValidatorInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function valid(
         ?array $options = null,
         ?array $groups = null,
          $payload = null,
         ?bool $traverse = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function week(
         ?string $min = null,
@@ -676,7 +676,7 @@ interface ChainedValidatorInterface
         string $tooHighMessage = 'This value should not be after week "{{ max }}".',
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function when(
         \Symfony\Component\ExpressionLanguage\Expression|array|string $expression,
@@ -685,7 +685,7 @@ interface ChainedValidatorInterface
         ?array $groups = null,
          $payload = null,
         array $options = [],
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function wordCount(
         ?int $min = null,
@@ -695,31 +695,13 @@ interface ChainedValidatorInterface
         string $maxMessage = 'This value is too long. It should contain one word.|This value is too long. It should contain {{ max }} words or less.',
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
     public function yaml(
         string $message = 'This value is not valid YAML.',
         int $flags = 0,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedValidatorInterface;
+    ): ChainedValidatorInterface&Validator;
 
-    public function validate(
-        mixed $value,
-        ?string $name = null,
-        \Symfony\Component\Validator\Constraints\GroupSequence|array|string|null $groups = null,
-    ): \Symfony\Component\Validator\ConstraintViolationListInterface;
-
-    public function assert(
-        mixed $value,
-        ?string $name = null,
-        \Symfony\Component\Validator\Constraints\GroupSequence|array|string|null $groups = null,
-    ): void;
-
-    public function isValid(
-        mixed $value,
-        \Symfony\Component\Validator\Constraints\GroupSequence|array|string|null $groups = null,
-    ): bool;
-
-    public function getConstraints(): array;
 }

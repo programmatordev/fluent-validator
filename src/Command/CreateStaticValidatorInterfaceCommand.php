@@ -39,7 +39,7 @@ class CreateStaticValidatorInterfaceCommand extends Command
             $methodName = lcfirst($constraintReflection->getShortName());
             $methodParameters = $constraintReflection->getConstructor()->getParameters();
 
-            $file->writeMethod($methodName, 'ChainedValidatorInterface', $methodParameters, true);
+            $file->writeMethod($methodName, 'ChainedValidatorInterface&Validator', $methodParameters, true);
         }
 
         $file->writeInterfaceEnd();

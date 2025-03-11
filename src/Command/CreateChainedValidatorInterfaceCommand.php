@@ -3,7 +3,6 @@
 namespace ProgrammatorDev\FluentValidator\Command;
 
 use Composer\InstalledVersions;
-use ProgrammatorDev\FluentValidator\Validator;
 use ProgrammatorDev\FluentValidator\Writer\InterfaceWriter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,18 +39,7 @@ class CreateChainedValidatorInterfaceCommand extends Command
             $methodName = lcfirst($constraintReflection->getShortName());
             $methodParameters = $constraintReflection->getConstructor()->getParameters();
 
-            $file->writeMethod($methodName, 'ChainedValidatorInterface', $methodParameters);
-        }
-
-        $validatorReflection = new \ReflectionClass(Validator::class);
-
-        foreach ($validatorReflection->getMethods() as $method) {
-            // only write methods that are public, not static and not magic
-            if (!$method->isPublic() || $method->isStatic() || str_starts_with($method->getName(), '__')) {
-                continue;
-            }
-
-            $file->writeMethod($method->getName(), (string) $method->getReturnType(), $method->getParameters());
+            $file->writeMethod($methodName, 'ChainedValidatorInterface&Validator', $methodParameters);
         }
 
         $file->writeInterfaceEnd();
