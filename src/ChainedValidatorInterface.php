@@ -704,4 +704,22 @@ interface ChainedValidatorInterface
         mixed $payload = null,
     ): ChainedValidatorInterface;
 
+    public function validate(
+        mixed $value,
+        ?string $name = null,
+        \Symfony\Component\Validator\Constraints\GroupSequence|array|string|null $groups = null,
+    ): \Symfony\Component\Validator\ConstraintViolationListInterface;
+
+    public function assert(
+        mixed $value,
+        ?string $name = null,
+        \Symfony\Component\Validator\Constraints\GroupSequence|array|string|null $groups = null,
+    ): void;
+
+    public function isValid(
+        mixed $value,
+        \Symfony\Component\Validator\Constraints\GroupSequence|array|string|null $groups = null,
+    ): bool;
+
+    public function getConstraints(): array;
 }

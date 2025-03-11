@@ -3,6 +3,7 @@
 namespace ProgrammatorDev\FluentValidator\Command;
 
 use Composer\InstalledVersions;
+use ProgrammatorDev\FluentValidator\Validator;
 use ProgrammatorDev\FluentValidator\Writer\InterfaceWriter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,13 +11,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\Constraint;
 use WyriHaximus\Lister;
 
-class CreateChainedInterfaceCommand extends Command
+class CreateChainedValidatorInterfaceCommand extends Command
 {
     public function __construct()
     {
         parent::__construct('validator:chained-interface:create');
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $packagePath = InstalledVersions::getInstallPath('symfony/validator');
@@ -33,12 +37,21 @@ class CreateChainedInterfaceCommand extends Command
             }
 
             $constraintReflection = new \ReflectionClass($class);
-            $constraintConstructor = $constraintReflection->getConstructor();
-
             $methodName = lcfirst($constraintReflection->getShortName());
-            $methodParameters = $constraintConstructor->getParameters();
+            $methodParameters = $constraintReflection->getConstructor()->getParameters();
 
-            $file->writeMethod($methodName, $methodParameters);
+            $file->writeMethod($methodName, 'ChainedValidatorInterface', $methodParameters);
+        }
+
+        $validatorReflection = new \ReflectionClass(Validator::class);
+
+        foreach ($validatorReflection->getMethods() as $method) {
+            // only write methods that are public, not static and not magic
+            if (!$method->isPublic() || $method->isStatic() || str_starts_with($method->getName(), '__')) {
+                continue;
+            }
+
+            $file->writeMethod($method->getName(), (string) $method->getReturnType(), $method->getParameters());
         }
 
         $file->writeInterfaceEnd();

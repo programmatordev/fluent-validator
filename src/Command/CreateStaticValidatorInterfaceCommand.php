@@ -10,13 +10,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Validator\Constraint;
 use WyriHaximus\Lister;
 
-class CreateStaticInterfaceCommand extends Command
+class CreateStaticValidatorInterfaceCommand extends Command
 {
     public function __construct()
     {
         parent::__construct('validator:static-interface:create');
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $packagePath = InstalledVersions::getInstallPath('symfony/validator');
@@ -33,12 +36,10 @@ class CreateStaticInterfaceCommand extends Command
             }
 
             $constraintReflection = new \ReflectionClass($class);
-            $constraintConstructor = $constraintReflection->getConstructor();
-
             $methodName = lcfirst($constraintReflection->getShortName());
-            $methodParameters = $constraintConstructor->getParameters();
+            $methodParameters = $constraintReflection->getConstructor()->getParameters();
 
-            $file->writeMethod($methodName, $methodParameters, true);
+            $file->writeMethod($methodName, 'ChainedValidatorInterface', $methodParameters, true);
         }
 
         $file->writeInterfaceEnd();

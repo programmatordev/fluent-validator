@@ -26,7 +26,7 @@ class InterfaceWriter
      * @param \ReflectionParameter[] $parameters
      * @throws \ReflectionException
      */
-    public function writeMethod(string $name, array $parameters = [], bool $isStatic = false): void
+    public function writeMethod(string $name, string $returnType, array $parameters = [], bool $isStatic = false): void
     {
         $this->writeIndent();
         $this->writeLine(
@@ -63,7 +63,7 @@ class InterfaceWriter
         }
 
         $this->writeIndent();
-        $this->writeLine('): ChainedValidatorInterface;');
+        $this->writeLine(sprintf('): %s;', $this->formatType($returnType)));
         $this->writeLine();
     }
 

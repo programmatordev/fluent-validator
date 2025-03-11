@@ -703,5 +703,4 @@ interface StaticValidatorInterface
         ?array $groups = null,
         mixed $payload = null,
     ): ChainedValidatorInterface;
-
 }

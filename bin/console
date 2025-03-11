@@ -2,17 +2,17 @@
 
 <?php
 
-use ProgrammatorDev\FluentValidator\Command\CreateChainedInterfaceCommand;
-use ProgrammatorDev\FluentValidator\Command\CreateStaticInterfaceCommand;
-use ProgrammatorDev\FluentValidator\Command\CreateInterfacesCommand;
+use ProgrammatorDev\FluentValidator\Command\CreateChainedValidatorInterfaceCommand;
+use ProgrammatorDev\FluentValidator\Command\CreateStaticValidatorInterfaceCommand;
+use ProgrammatorDev\FluentValidator\Command\CreateValidatorInterfacesCommand;
 use Symfony\Component\Console\Application;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = new Application();
 
-$app->add(new CreateStaticInterfaceCommand());
-$app->add(new CreateChainedInterfaceCommand());
-$app->add(new CreateInterfacesCommand());
+$app->add(new CreateStaticValidatorInterfaceCommand());
+$app->add(new CreateChainedValidatorInterfaceCommand());
+$app->add(new CreateValidatorInterfacesCommand());
 
 $app->run();
