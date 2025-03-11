@@ -14,19 +14,16 @@ class CreateChainedInterfaceCommand extends Command
 {
     public function __construct()
     {
-        parent::__construct('chained-interface:create');
+        parent::__construct('validator:chained-interface:create');
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $packagePath = InstalledVersions::getInstallPath('symfony/validator');
         $constraintsPath = sprintf('%s/Constraints', $packagePath);
         $classes = Lister::instantiatableClassesInDirectory($constraintsPath);
 
-        $file = new InterfaceWriter('ChainedInterface');
+        $file = new InterfaceWriter('ChainedValidatorInterface');
         $file->writeInterfaceStart();
 
         foreach ($classes as $class) {

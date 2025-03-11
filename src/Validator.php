@@ -10,8 +10,8 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/** @mixin StaticInterface */
-class FluentValidator
+/** @mixin StaticValidatorInterface */
+class Validator
 {
     /** @var Constraint[] */
     private array $constraints;
@@ -45,11 +45,7 @@ class FluentValidator
         return $this;
     }
 
-    private function runValidation(
-        mixed $value,
-        ?string $name = null,
-        array|null|string|GroupSequence $groups = null
-    ): ConstraintViolationListInterface
+    public function validate(mixed $value, ?string $name = null, string|GroupSequence|array|null $groups = null): ConstraintViolationListInterface
     {
         $builder = Validation::createValidatorBuilder();
 
@@ -68,22 +64,9 @@ class FluentValidator
         return $context->getViolations();
     }
 
-    public function validate(
-        mixed $value,
-        ?string $name = null,
-        string|GroupSequence|array|null $groups = null
-    ): ConstraintViolationListInterface
+    public function assert(mixed $value, ?string $name = null, string|GroupSequence|array|null $groups = null): void
     {
-        return $this->runValidation($value, $name, $groups);
-    }
-
-    public function assert(
-        mixed $value,
-        ?string $name = null,
-        string|GroupSequence|array|null $groups = null
-    ): void
-    {
-        $violations = $this->runValidation($value, $name, $groups);
+        $violations = $this->validate($value, $name, $groups);
 
         if ($violations->count() > 0) {
             $message = $violations->get(0)->getMessage();
@@ -96,12 +79,9 @@ class FluentValidator
         }
     }
 
-    public function isValid(
-        mixed $value,
-        string|GroupSequence|array|null $groups = null
-    ): bool
+    public function isValid(mixed $value, string|GroupSequence|array|null $groups = null): bool
     {
-        $violations = $this->runValidation($value, groups: $groups);
+        $violations = $this->validate($value, groups: $groups);
 
         return $violations->count() === 0;
     }

@@ -14,19 +14,16 @@ class CreateStaticInterfaceCommand extends Command
 {
     public function __construct()
     {
-        parent::__construct('static-interface:create');
+        parent::__construct('validator:static-interface:create');
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $packagePath = InstalledVersions::getInstallPath('symfony/validator');
         $constraintsPath = sprintf('%s/Constraints', $packagePath);
         $classes = Lister::instantiatableClassesInDirectory($constraintsPath);
 
-        $file = new InterfaceWriter('StaticInterface');
+        $file = new InterfaceWriter('StaticValidatorInterface');
         $file->writeInterfaceStart();
 
         foreach ($classes as $class) {

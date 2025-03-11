@@ -2,13 +2,13 @@
 
 namespace ProgrammatorDev\FluentValidator;
 
-interface StaticInterface
+interface StaticValidatorInterface
 {
     public static function all(
         mixed $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function atLeastOneOf(
         mixed $constraints = null,
@@ -17,7 +17,7 @@ interface StaticInterface
         ?string $message = null,
         ?string $messageCollection = null,
         ?bool $includeInternalMessages = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function bic(
         ?array $options = null,
@@ -28,21 +28,21 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         ?string $mode = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function blank(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function callback(
         callable|array|string|null $callback = null,
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function cardScheme(
         array|string|null $schemes,
@@ -50,19 +50,19 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function cascade(
         array|string|null $exclude = null,
         ?array $options = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function charset(
         array|string $encodings = [],
         string $message = 'The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.',
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function choice(
         array|string $options = [],
@@ -79,7 +79,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         ?bool $match = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function cidr(
         ?array $options = null,
@@ -90,7 +90,7 @@ interface StaticInterface
         ?array $groups = null,
          $payload = null,
         ?callable $normalizer = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function collection(
         mixed $fields = null,
@@ -100,7 +100,7 @@ interface StaticInterface
         ?bool $allowMissingFields = null,
         ?string $extraFieldsMessage = null,
         ?string $missingFieldsMessage = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function count(
         array|int|null $exactly = null,
@@ -114,7 +114,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function country(
         ?array $options = null,
@@ -122,7 +122,7 @@ interface StaticInterface
         ?bool $alpha3 = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function cssColor(
         array|string $formats = [],
@@ -130,21 +130,21 @@ interface StaticInterface
         ?array $groups = null,
          $payload = null,
         ?array $options = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function currency(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function date(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function dateTime(
         array|string|null $format = null,
@@ -152,11 +152,11 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function disableAutoMapping(
         ?array $options = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function divisibleBy(
         mixed $value = null,
@@ -165,7 +165,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function email(
         ?array $options = null,
@@ -174,11 +174,11 @@ interface StaticInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function enableAutoMapping(
         ?array $options = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function equalTo(
         mixed $value = null,
@@ -187,7 +187,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function expression(
         \Symfony\Component\ExpressionLanguage\Expression|array|string|null $expression,
@@ -197,7 +197,7 @@ interface StaticInterface
         mixed $payload = null,
         array $options = [],
         ?bool $negate = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function expressionSyntax(
         ?array $options = null,
@@ -206,7 +206,7 @@ interface StaticInterface
         ?array $allowedVariables = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function file(
         ?array $options = null,
@@ -232,7 +232,7 @@ interface StaticInterface
         mixed $payload = null,
         array|string|null $extensions = null,
         ?string $extensionsMessage = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function greaterThan(
         mixed $value = null,
@@ -241,7 +241,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function greaterThanOrEqual(
         mixed $value = null,
@@ -250,7 +250,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function hostname(
         ?array $options = null,
@@ -258,14 +258,14 @@ interface StaticInterface
         ?bool $requireTld = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function iban(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function identicalTo(
         mixed $value = null,
@@ -274,7 +274,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function image(
         ?array $options = null,
@@ -323,7 +323,7 @@ interface StaticInterface
         ?string $corruptedMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function ip(
         ?array $options = null,
@@ -332,28 +332,28 @@ interface StaticInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function isFalse(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function isNull(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function isTrue(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function isbn(
         array|string|null $type = null,
@@ -364,14 +364,14 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function isin(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function issn(
         ?array $options = null,
@@ -380,14 +380,14 @@ interface StaticInterface
         ?bool $requireHyphen = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function json(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function language(
         ?array $options = null,
@@ -395,7 +395,7 @@ interface StaticInterface
         ?bool $alpha3 = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function length(
         array|int|null $exactly = null,
@@ -411,7 +411,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function lessThan(
         mixed $value = null,
@@ -420,7 +420,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function lessThanOrEqual(
         mixed $value = null,
@@ -429,7 +429,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function locale(
         ?array $options = null,
@@ -437,14 +437,14 @@ interface StaticInterface
         ?bool $canonicalize = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function luhn(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function macAddress(
         string $message = 'This value is not a valid MAC address.',
@@ -452,21 +452,21 @@ interface StaticInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function negative(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function negativeOrZero(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function noSuspiciousCharacters(
         ?array $options = null,
@@ -479,7 +479,7 @@ interface StaticInterface
         ?array $locales = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function notBlank(
         ?array $options = null,
@@ -488,7 +488,7 @@ interface StaticInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function notCompromisedPassword(
         ?array $options = null,
@@ -497,7 +497,7 @@ interface StaticInterface
         ?bool $skipOnError = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function notEqualTo(
         mixed $value = null,
@@ -506,7 +506,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function notIdenticalTo(
         mixed $value = null,
@@ -515,20 +515,20 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function notNull(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function optional(
         mixed $options = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function passwordStrength(
         ?array $options = null,
@@ -536,21 +536,21 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         ?string $message = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function positive(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function positiveOrZero(
         ?array $options = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function range(
         ?array $options = null,
@@ -565,7 +565,7 @@ interface StaticInterface
         ?string $maxPropertyPath = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function regex(
         array|string|null $pattern,
@@ -576,19 +576,19 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function required(
         mixed $options = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function sequentially(
         mixed $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function time(
         ?array $options = null,
@@ -596,7 +596,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         ?bool $withSeconds = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function timezone(
         array|int|null $zone = null,
@@ -606,11 +606,11 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function traverse(
         array|bool|null $traverse = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function type(
         array|string|null $type,
@@ -618,7 +618,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function ulid(
         ?array $options = null,
@@ -626,7 +626,7 @@ interface StaticInterface
         ?array $groups = null,
         mixed $payload = null,
         ?string $format = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function unique(
         ?array $options = null,
@@ -636,7 +636,7 @@ interface StaticInterface
         mixed $payload = null,
         array|string|null $fields = null,
         ?string $errorPath = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function url(
         ?array $options = null,
@@ -648,7 +648,7 @@ interface StaticInterface
         mixed $payload = null,
         ?bool $requireTld = null,
         ?string $tldMessage = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function uuid(
         ?array $options = null,
@@ -658,14 +658,14 @@ interface StaticInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function valid(
         ?array $options = null,
         ?array $groups = null,
          $payload = null,
         ?bool $traverse = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function week(
         ?string $min = null,
@@ -676,7 +676,7 @@ interface StaticInterface
         string $tooHighMessage = 'This value should not be after week "{{ max }}".',
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function when(
         \Symfony\Component\ExpressionLanguage\Expression|array|string $expression,
@@ -685,7 +685,7 @@ interface StaticInterface
         ?array $groups = null,
          $payload = null,
         array $options = [],
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function wordCount(
         ?int $min = null,
@@ -695,13 +695,13 @@ interface StaticInterface
         string $maxMessage = 'This value is too long. It should contain one word.|This value is too long. It should contain {{ max }} words or less.',
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
     public static function yaml(
         string $message = 'This value is not valid YAML.',
         int $flags = 0,
         ?array $groups = null,
         mixed $payload = null,
-    ): ChainedInterface;
+    ): ChainedValidatorInterface;
 
 }

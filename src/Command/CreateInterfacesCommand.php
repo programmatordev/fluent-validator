@@ -10,7 +10,7 @@ class CreateInterfacesCommand extends Command
 {
     public function __construct()
     {
-        parent::__construct('interfaces:create');
+        parent::__construct('validator:interfaces:create');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int

@@ -63,7 +63,7 @@ class InterfaceWriter
         }
 
         $this->writeIndent();
-        $this->writeLine('): ChainedInterface;');
+        $this->writeLine('): ChainedValidatorInterface;');
         $this->writeLine();
     }
 
