@@ -2,7 +2,6 @@
 
 namespace ProgrammatorDev\FluentValidator\Factory;
 
-use ProgrammatorDev\FluentValidator\Exception\InvalidConstraintException;
 use ProgrammatorDev\FluentValidator\Exception\NoSuchConstraintException;
 use Symfony\Component\Validator\Constraint;
 
@@ -22,21 +21,14 @@ class ConstraintFactory
                 $constraint = new $className(...$arguments);
 
                 if (!$constraint instanceof Constraint) {
-                    throw new InvalidConstraintException(
-                        sprintf(
-                            'Constraint "%s" must be an instance of "Symfony\Component\Validator\Constraint".',
-                            $className
-                        )
-                    );
+                    throw new NoSuchConstraintException($constraintName);
                 }
 
                 return $constraint;
             }
         }
 
-        throw new NoSuchConstraintException(
-            sprintf('Constraint "%s" was not found.', $constraintName)
-        );
+        throw new NoSuchConstraintException($constraintName);
     }
 
     public function addNamespace(string $namespace): self
