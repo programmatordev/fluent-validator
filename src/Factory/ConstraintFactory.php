@@ -15,17 +15,14 @@ class ConstraintFactory
         $constraintName = ucfirst($constraintName);
 
         foreach ($this->namespaces as $namespace) {
-            $className = sprintf('%s\%s', $namespace, $constraintName);
+            $class = sprintf('%s\%s', $namespace, $constraintName);
 
-            if (class_exists($className)) {
-                $constraint = new $className(...$arguments);
-
-                if (!$constraint instanceof Constraint) {
-                    throw new NoSuchConstraintException($constraintName);
-                }
-
-                return $constraint;
+            // throw error if class is not an instance of Constraint
+            if (!is_a($class, Constraint::class, true)) {
+                throw new NoSuchConstraintException($constraintName);
             }
+
+            return new $class(...$arguments);
         }
 
         throw new NoSuchConstraintException($constraintName);
