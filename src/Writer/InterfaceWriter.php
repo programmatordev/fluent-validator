@@ -12,8 +12,9 @@ class InterfaceWriter
         $this->file = new \SplFileObject($filename, 'w');
     }
 
-    public function writeLine(string $line = ''): void
+    public function writeLine(string $line = '', int $numIndent = 0): void
     {
+        $this->writeIndent($numIndent);
         $this->file->fwrite($line . PHP_EOL);
     }
 
@@ -28,18 +29,16 @@ class InterfaceWriter
      */
     public function writeMethod(string $name, string $returnType, array $parameters = [], bool $isStatic = false): void
     {
-        $this->writeIndent();
         $this->writeLine(
             sprintf(
                 $isStatic ? 'public static function %s(' : 'public function %s(',
                 $name
-            )
+            ),
+            1
         );
 
         foreach ($parameters as $parameter) {
             $parameterType = $this->formatType((string) $parameter->getType());
-
-            $this->writeIndent(2);
 
             if ($parameter->isOptional()) {
                 $this->writeLine(
@@ -48,7 +47,8 @@ class InterfaceWriter
                         $parameterType,
                         $parameter->getName(),
                         $this->formatValue($parameter->getDefaultValue())
-                    )
+                    ),
+                    2
                 );
             }
             else {
@@ -57,32 +57,29 @@ class InterfaceWriter
                         '%s $%s,',
                         $parameterType,
                         $parameter->getName()
-                    )
+                    ),
+                    2
                 );
             }
         }
 
-        $this->writeIndent();
-        $this->writeLine(sprintf('): %s;', $this->formatType($returnType)));
+        $this->writeLine(sprintf('): %s;', $this->formatType($returnType)), 1);
         $this->writeLine();
     }
 
-    public function writeNamespace(): void
+    public function writeNamespace(string $name): void
     {
-        $this->writeLine('namespace ProgrammatorDev\FluentValidator;');
-    }
-
-    public function writeUse(string $name): void
-    {
-        $this->writeLine(sprintf('use %s;', $name));
+        $this->writeLine(sprintf('namespace %s;', $name));
     }
 
     public function writeInterfaceStart(): void
     {
         $this->writeLine('<?php');
         $this->writeLine();
-        $this->writeNamespace();
+
+        $this->writeNamespace('ProgrammatorDev\FluentValidator');
         $this->writeLine();
+
         $this->writeLine(sprintf('interface %s', $this->interfaceName));
         $this->writeLine('{');
     }
