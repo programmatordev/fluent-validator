@@ -1,12 +1,12 @@
 # Fluent Validator
 
-[Symfony Validator](https://symfony.com/doc/current/validation.html) wrapper to validate raw values in a fluent way.
+[Symfony Validator](https://symfony.com/doc/current/validation.html) wrapper to validate raw values in a fluent style.
 
 ## Features
 
-- Validate any value in a fluent way;
+- Validate any value in a fluent style;
 - Constraints autocompletion;
-- 3 validation methods with `validate`, `assert` and `isValid`;
+- 3 validation methods: `validate`, `assert` and `isValid`;
 - Custom constraints;
 - Translations.
 
@@ -44,7 +44,7 @@ There is also a section for [Custom Constraints](#custom-constraints) and [Trans
 
 ## Constraints
 
-All available constraints can be found at the [Symfony Validator official documentation](https://symfony.com/doc/current/validation.html#constraints).
+All available constraints can be found on the [Symfony Validator documentation](https://symfony.com/doc/current/validation.html#constraints).
 
 For custom constraints, check the [Custom Constraints](#custom-constraints) section.
 
@@ -145,16 +145,123 @@ $constraints = Validator::notBlank()->email()->getConstraints();
 ```
 
 It is useful for `Composite` constraints (i.e., a constraint that is composed of other constraints)
-to keep the fluent validation style:
+and keep the fluent validation style:
 
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
 
-// validate that all values from array are between 0 and 100
 $value = [10, 3, 110];
-$errors = Validator::all(Validator::range(min: 0, max: 100)->getConstraints())->validate($value);
+
+// validate that array should have at least one value
+// and each value should be between 0 and 100
+$errors = Validator::count(min: 1)
+    ->all(Validator::range(min: 0, max: 100)->getConstraints())
+    ->validate($value);
 ```
 
 ## Custom Constraints
+
+To create custom constraints, follow the instructions on the [Symfony Validator documentation](https://symfony.com/doc/current/validation/custom_constraint.html).
+
+Using the same example found in the documentation, creating a `ContainsAlphanumeric` constraint would require the following steps:
+
+### 1. Create a Constraint Class
+
+Let's assume your custom constraints will be in the `src/Constraint` directory.
+
+All custom constraints must extend the `Constraint` class.
+
+```php
+// src/Constraint/ContainsAlphanumeric.php
+namespace App\Constraint;
+
+use Symfony\Component\Validator\Constraint;
+
+class ContainsAlphanumeric extends Constraint
+{
+    public string $message = 'The string "{{ string }}" contains an illegal character: it can only contain letters or numbers.';
+    public string $mode = 'strict';
+
+    // all configurable options must be passed to the constructor
+    public function __construct(?string $mode = null, ?string $message = null, ?array $groups = null, $payload = null)
+    {
+        parent::__construct([], $groups, $payload);
+
+        $this->mode = $mode ?? $this->mode;
+        $this->message = $message ?? $this->message;
+    }
+}
+```
+
+### 2. Create the Validator Class
+
+The validator class must be the name of the constraint class followed by `Validator`.
+In this case, since the custom constraint class was named `ContainsAlphanumeric`, 
+our validator should be named `ContainsAlphanumericValidator` and extend the `ConstraintValidator` class.
+
+```php
+// src/Constraint/ContainsAlphanumericValidator.php
+namespace App\Constraint;
+
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
+
+class ContainsAlphanumericValidator extends ConstraintValidator
+{
+    public function validate(mixed $value, Constraint $constraint): void
+    {
+        if (!$constraint instanceof ContainsAlphanumeric) {
+            throw new UnexpectedTypeException($constraint, ContainsAlphanumeric::class);
+        }
+
+        // custom constraints should ignore null and empty values to allow
+        // other constraints (NotBlank, NotNull, etc.) to take care of that
+        if (null === $value || '' === $value) {
+            return;
+        }
+
+        if (!is_string($value)) {
+            // throw this exception if your validator cannot handle the passed type so that it can be marked as invalid
+            throw new UnexpectedValueException($value, 'string');
+
+            // separate multiple types using pipes
+            // throw new UnexpectedValueException($value, 'string|int');
+        }
+
+        // access your configuration options like this:
+        if ('strict' === $constraint->mode) {
+            // ...
+        }
+
+        if (preg_match('/^[a-zA-Z0-9]+$/', $value, $matches)) {
+            return;
+        }
+
+        // the argument must be a string or an object implementing __toString()
+        $this->context->buildViolation($constraint->message)
+            ->setParameter('{{ string }}', $value)
+            ->addViolation();
+    }
+}
+```
+
+### 3. Add Namespace
+
+Finally, add the namespace where the custom constraints will be located in your project.
+
+```php
+use ProgrammatorDev\FluentValidator\Validator;
+
+Validator::addNamespace('App\Constraint');
+
+Validator::notBlank()->containsAlphanumeric()->isValid('!'); // false
+Validator::notBlank()->containsAlphanumeric()->isValud('v4l1d'); // true
+```
+
+You can have multiple constraints in the same namespace or have multiple namespaces.
+
+Unfortunately, custom constraints will not be suggested in the autocompletion.
 
 ## Translations
