@@ -6,7 +6,7 @@
 
 - Validate any value in a fluent style;
 - Constraints autocompletion;
-- 3 validation methods: `validate`, `assert` and `isValid`;
+- 3 validation methods: [`validate`](#validate), [`assert`](#assert) and [`isValid`](#isvalid);
 - Custom constraints;
 - Translations.
 
@@ -66,7 +66,7 @@ use ProgrammatorDev\FluentValidator\Validator;
 
 $errors = Validator::email()->validate('test@email.com');
 
-if ($errors->count() => 0) {
+if ($errors->count() > 0) {
     foreach ($errors as $error) {
         $message = $error->getMessage();
         // ...
@@ -159,6 +159,28 @@ $errors = Validator::count(min: 1)
     ->validate($value);
 ```
 
+### `addNamespace`
+
+```php
+addNamespace(string $namespace): void
+```
+
+Used to add namespaces for custom constraints. 
+
+Check the [Custom Constraints](#custom-constraints) section for more information.
+
+### `setTranslator`
+
+```php
+use Symfony\Contracts\Translation\TranslatorInterface;
+
+setTranslator(?TranslatorInterface $translator): void
+```
+
+Used to add a translator for the translation of all constraint error messages.
+
+Check the [Translations](#translations) section for more information.
+
 ## Custom Constraints
 
 To create custom constraints, follow the instructions on the [Symfony Validator documentation](https://symfony.com/doc/current/validation/custom_constraint.html).
@@ -169,7 +191,7 @@ Using the same example found in the documentation, creating a `ContainsAlphanume
 
 Let's assume your custom constraints will be in the `src/Constraint` directory.
 
-All custom constraints must extend the `Constraint` class.
+All custom constraints should extend the `Constraint` class.
 
 ```php
 // src/Constraint/ContainsAlphanumeric.php
@@ -265,3 +287,28 @@ You can have multiple constraints in the same namespace or have multiple namespa
 Unfortunately, custom constraints will not be suggested in the autocompletion.
 
 ## Translations
+
+You can set a global translator to handle all error messages translations.
+
+This library already comes with one that will translate all error messages based on the translations provided by Symfony Validator.
+Check all [available translations](https://github.com/symfony/symfony/tree/7.2/src/Symfony/Component/Validator/Resources/translations).
+
+```php
+use ProgrammatorDev\FluentValidator\Translator\Translator;
+
+// set translator to Portuguese (Portugal) locale
+Validator::setTranslator(new Translator('pt'));
+
+// now all error messages will be in Portuguese
+Validator::notBlank()->validate(''); // Este valor não deveria ser vazio.
+```
+
+## Contributing
+
+Any form of contribution to improve this library (including requests) will be welcome and appreciated.
+Make sure to open a pull request or issue.
+
+## License
+
+This project is licensed under the MIT license.
+Please see the [LICENSE](LICENSE) file distributed with this source code for further information regarding copyright and licensing.
