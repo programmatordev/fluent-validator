@@ -5,11 +5,11 @@ offering an easy-to-use and intuitive API to validate user input or other data i
 
 ## Features
 
-- **Fluent-style validation**: Chain validation methods for better readability and flow.
-- **Constraints autocompletion**: Enables IDE autocompletion for available constraints.
-- **Three validation methods**: Use `validate`, `assert`, or `isValid` based on the context (i.e., collect errors or throw exceptions).
-- **Custom constraints**: Easily integrate custom validation logic with Symfony's Validator system.
-- **Translations support**: Translate validation error messages into multiple languages.
+- 🌊 **Fluent-style validation:** Chain validation methods for better readability and flow.
+- 🤘 **Constraints autocompletion:** Enables IDE autocompletion for available constraints.
+- 🔥 **Three validation methods:** Use `validate`, `assert`, or `isValid` based on the context (i.e., collect errors or throw exceptions).
+- ⚙️ **Custom constraints:** Easily integrate custom validation logic with Symfony's Validator system.
+- 💬 **Translations support:** Translate validation error messages into multiple languages.
 
 ## Requirements
 
