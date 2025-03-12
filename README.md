@@ -11,6 +11,18 @@ offering an easy-to-use and intuitive API to validate user input or other data i
 - **Custom constraints**: Easily integrate custom validation logic with Symfony's Validator system.
 - **Translations support**: Translate validation error messages into multiple languages.
 
+## Requirements
+
+- PHP 8.2 or higher.
+
+## Installation
+
+Install via [Composer](https://getcomposer.org/):
+
+```bash
+composer require programmatordev/fluent-validator
+```
+
 ## Usage
 
 Simple usage should look like this:
