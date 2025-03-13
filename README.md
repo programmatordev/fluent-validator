@@ -1,5 +1,9 @@
 # Fluent Validator
 
+[![Latest Version](https://img.shields.io/github/release/programmatordev/fluent-validator.svg?style=flat-square)](https://github.com/programmatordev/fluent-validator/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Tests](https://github.com/programmatordev/fluent-validator/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/programmatordev/fluent-validator/actions/workflows/ci.yml?query=branch%3Amain)
+
 A [Symfony Validator](https://symfony.com/doc/current/validation.html) wrapper that enables fluent-style validation for raw values, 
 offering an easy-to-use and intuitive API to validate user input or other data in a concise and readable manner.
 
