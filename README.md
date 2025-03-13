@@ -1,6 +1,6 @@
 # Fluent Validator
 
-A Symfony Validator wrapper that enables fluent-style validation for raw values, 
+A [Symfony Validator](https://symfony.com/doc/current/validation.html) wrapper that enables fluent-style validation for raw values, 
 offering an easy-to-use and intuitive API to validate user input or other data in a concise and readable manner.
 
 ## Features
@@ -10,6 +10,21 @@ offering an easy-to-use and intuitive API to validate user input or other data i
 - 🔥 **Three validation methods:** Use `validate`, `assert`, or `isValid` based on the context (i.e., collect errors or throw exceptions).
 - ⚙️ **Custom constraints:** Easily integrate custom validation logic with Symfony's Validator system.
 - 💬 **Translations support:** Translate validation error messages into multiple languages.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Constraints](#constraints)
+- [Methods](#methods)
+  - [validate](#validate)
+  - [assert](#assert)
+  - [isValid](#isvalid)
+  - [getConstraints](#getconstraints)
+  - [addNamespace](#addnamespace)
+  - [setTranslator](#settranslator)
+- [Custom Constraints](#custom-constraints)
+- [Translations](#translations)
 
 ## Requirements
 
@@ -25,7 +40,7 @@ composer require programmatordev/fluent-validator
 
 ## Usage
 
-Simple usage should look like this:
+Simple usage example:
 
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
@@ -41,16 +56,15 @@ if ($errors->count() > 0) {
 }
 ```
 
-Constraints autocompletion is available in IDEs like PhpStorm (i.e., constraints will be suggested as you type them). 
-As a rule of thumb, the chained method name should be the same as the original Symfony constraint class name, 
-but with a lowercased first letter.
+Constraints autocompletion is available in IDEs like PhpStorm. 
+The method names match Symfony constraints but with a lowercase first letter:
 
 - `NotBlank` => `notBlank`
 - `All` => `all`
 - `PasswordStrength` => `passwordStrength`
 - ...and so on.
 
-For more information about all available constraints, check the [Constraints](#constraints) section below.
+For all available constraints, check the [Constraints](#constraints) section.
 
 For all available methods, check the [Methods](#methods) section.
 
@@ -72,8 +86,7 @@ use Symfony\Component\Validator\Constraints\GroupSequence;
 validate(mixed $value, ?string $name = null, string|GroupSequence|array|null $groups = null): ConstraintViolationListInterface
 ```
 
-This method returns a `ConstraintViolationList` object, which acts like an array of errors. 
-Each error in the collection is a `ConstraintViolation` object, which holds the error message on its `getMessage()` method.
+Returns a `ConstraintViolationList` object, acting as an array of errors.
 
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
@@ -96,17 +109,15 @@ use Symfony\Component\Validator\Constraints\GroupSequence;
 assert(mixed $value, ?string $name = null, string|GroupSequence|array|null $groups = null): void
 ```
 
-This method will throw a `ValidationFailedException` when a validation has failed.
+Throws a `ValidationFailedException` when validation fails.
 
 ```php
 use ProgrammatorDev\FluentValidator\Exception\ValidationFailedException;
 use ProgrammatorDev\FluentValidator\Validator;
-use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 try {
     Validator::notBlank()->assert($name);
     Validator::notBlank()->email()->assert($email);
-    Validator::notBlank()->passwordStrength(minScore: PasswordStrength::STRENGTH_VERY_STRONG)->assert($password);
 }
 catch (ValidationFailedException $exception) {
     // exception message will always be the first error thrown
@@ -129,13 +140,13 @@ use Symfony\Component\Validator\Constraints\GroupSequence;
 isValid(mixed $value, string|GroupSequence|array|null $groups = null): bool
 ```
 
-Useful for conditions, this method will return a `bool`.
+Returns a `bool` indicating if the value is valid.
 
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
 
 if (!Validator::email()->isValid($email)) {
-    // do something when the email is not valid
+    // handle invalid email
 }
 ```
 
@@ -157,12 +168,10 @@ $constraints = Validator::notBlank()->email()->getConstraints();
 ```
 
 It is useful for `Composite` constraints (i.e., a constraint that is composed of other constraints) 
-and keeps the fluent validation style:
+and keeps the fluent-style validation:
 
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
-
-$value = [10, 3, 110];
 
 // validate that array should have at least one value
 // and each value should be between 0 and 100
@@ -179,7 +188,7 @@ addNamespace(string $namespace): void
 
 Used to add namespaces for custom constraints. 
 
-Check the [Custom Constraints](#custom-constraints) section for more information.
+Check the [Custom Constraints](#custom-constraints) section.
 
 ### `setTranslator`
 
@@ -189,38 +198,36 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 setTranslator(?TranslatorInterface $translator): void
 ```
 
-Used to add a translator for the translation of all constraint error messages.
+Used to add a translator for validation error message translations.
 
-Check the [Translations](#translations) section for more information.
+Check the [Translations](#translations) section.
 
 ## Custom Constraints
 
-To create custom constraints, follow the instructions outlined in the [Symfony Validator documentation](https://symfony.com/doc/current/validation/custom_constraint.html).
+If you need a custom constraint, follow the Symfony Validator documentation: [Creating Custom Constraints](https://symfony.com/doc/current/validation/custom_constraint.html).
 
-Using the same example found in the documentation, creating a `ContainsAlphanumeric` constraint would require the following steps:
+### Example: Creating a `ContainsAlphanumeric` Constraint
 
-### 1. Create a Constraint Class
+#### 1. Create a Constraint Class
 
 This class defines the error message and configurable options.
 
 ```php
-// src/Constraint/ContainsAlphanumeric.php
 namespace App\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 
 class ContainsAlphanumeric extends Constraint
 {
-    // ...
+    // set configurable options
 }
 ```
 
-### 2. Create the Validator Class
+#### 2. Create the Validator Class
 
 The validator checks if the value complies with the constraint rules.
 
 ```php
-// src/Constraint/ContainsAlphanumericValidator.php
 namespace App\Constraint;
 
 use Symfony\Component\Validator\Constraint;
@@ -230,14 +237,14 @@ class ContainsAlphanumericValidator extends ConstraintValidator
 {
     public function validate(mixed $value, Constraint $constraint): void
     {
-        // ...
+        // custom validation logic
     }
 }
 ```
 
-### 3. Add Namespace
+#### 3. Register the Constraint Namespace
 
-Finally, register the namespace where the custom constraints will be located in your project.
+Register the namespace where the custom constraints will be located in your project.
 
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
@@ -250,12 +257,12 @@ Validator::notBlank()->containsAlphanumeric()->isValid('v4l1d'); // true
 
 You can have multiple constraints in the same namespace or have multiple namespaces.
 
-Unfortunately, custom constraints will not be suggested in the autocompletion.
+> [!NOTE]
+> Custom constraints will not be suggested in IDE autocompletion.
 
 ## Translations
 
-You can set a global translator to handle all error messages translations. 
-The library comes with a default translator that supports Symfony Validator translations.
+Set a global translator to handle error message translations.
 
 ```php
 use ProgrammatorDev\FluentValidator\Translator\Translator;
@@ -264,10 +271,10 @@ use ProgrammatorDev\FluentValidator\Translator\Translator;
 Validator::setTranslator(new Translator('pt'));
 
 // now all error messages will be in Portuguese
-Validator::notBlank()->validate(''); // Este valor não deveria ser vazio.
+Validator::notBlank()->validate('');
 ```
 
-To add your own translations, you can integrate a custom translator or extend the default one.
+To add your own translations, you can integrate a custom translator.
 
 ## Contributing
 
