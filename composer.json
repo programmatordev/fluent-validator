@@ -1,0 +1,40 @@
+{
+    "name": "programmatordev/fluent-validator",
+    "description": "A Symfony Validator wrapper that enables fluent-style validation for raw values, offering an easy-to-use and intuitive API to validate user input or other data in a concise and readable manner.",
+    "type": "library",
+    "keywords": ["php-validator", "php-validation", "fluent-validation", "validator", "validation", "php8", "symfony-validator"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "André Pimpão",
+            "email": "a.pimpao@programmator.dev",
+            "homepage": "https://programmator.dev"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "symfony/config": "^7.2",
+        "symfony/translation": "^7.2",
+        "symfony/validator": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5",
+        "symfony/console": "^7.2",
+        "symfony/var-dumper": "^7.2",
+        "wyrihaximus/list-classes-in-directory": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProgrammatorDev\\FluentValidator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ProgrammatorDev\\FluentValidator\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
