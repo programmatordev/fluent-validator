@@ -1,8 +1,8 @@
 {
     "name": "programmatordev/fluent-validator",
-    "description": "Fluent Validator",
+    "description": "A Symfony Validator wrapper that enables fluent-style validation for raw values, offering an easy-to-use and intuitive API to validate user input or other data in a concise and readable manner.",
     "type": "library",
-    "keywords": [],
+    "keywords": ["php-validator", "php-validation", "fluent-validation", "validator", "validation", "php8", "symfony-validator"],
     "license": "MIT",
     "authors": [
         {
