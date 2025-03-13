@@ -8,16 +8,16 @@ class ValidationFailedException extends \RuntimeException
 {
     public function __construct(
         string $message,
-        private readonly mixed $value,
+        private readonly mixed $invalidValue,
         private readonly ConstraintViolationListInterface $violations,
     )
     {
         parent::__construct($message);
     }
 
-    public function getValue(): mixed
+    public function getInvalidValue(): mixed
     {
-        return $this->value;
+        return $this->invalidValue;
     }
 
     public function getViolations(): ConstraintViolationListInterface

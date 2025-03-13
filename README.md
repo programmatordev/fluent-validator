@@ -123,7 +123,7 @@ catch (ValidationFailedException $exception) {
     // exception message will always be the first error thrown
     $message = $exception->getMessage();
     // value that failed validation
-    $value = $exception->getValue();
+    $value = $exception->getInvalidValue();
     // get access to all errors
     // returns a ConstraintViolationList object like in the validate method
     $errors = $exception->getViolations();
