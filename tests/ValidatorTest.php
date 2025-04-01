@@ -40,12 +40,10 @@ class ValidatorTest extends AbstractTestCase
 
     public function testValidate(): void
     {
-        // test fail
         $violations = $this->validator->validate(16);
         $this->assertInstanceOf(ConstraintViolationList::class, $violations);
         $this->assertCount(1, $violations);
 
-        // test success
         $violations = $this->validator->validate(18);
         $this->assertInstanceOf(ConstraintViolationList::class, $violations);
         $this->assertCount(0, $violations);
@@ -65,15 +63,13 @@ class ValidatorTest extends AbstractTestCase
 
     public function testIsValid(): void
     {
-        // test fail
         $this->assertFalse($this->validator->isValid(16));
-        // test success
         $this->assertTrue($this->validator->isValid(18));
     }
 
-    public function testGetConstraints(): void
+    public function testToArray(): void
     {
-        $constraints = $this->validator->getConstraints();
+        $constraints = $this->validator->toArray();
 
         $this->assertInstanceOf(NotBlank::class, $constraints[0]);
         $this->assertInstanceOf(GreaterThanOrEqual::class, $constraints[1]);
@@ -84,9 +80,7 @@ class ValidatorTest extends AbstractTestCase
     {
         Validator::addNamespace('ProgrammatorDev\FluentValidator\Test\Constraint');
 
-        // test fail
         $this->assertFalse(Validator::containsAlphanumeric()->isValid('!'));
-        // test success
         $this->assertTrue(Validator::containsAlphanumeric()->isValid('v4l1d'));
     }
 
@@ -94,12 +88,12 @@ class ValidatorTest extends AbstractTestCase
     {
         // by default, error is in English
         $violations = $this->validator->validate('');
-        $this->assertEquals('This value should not be blank.', $violations[0]->getMessage());
+        $this->assertEquals('This value should not be blank.', $violations->get(0)->getMessage());
 
         // set translator and then try again
         Validator::setTranslator(new Translator('pt'));
         // now error is in Portuguese
         $violations = $this->validator->validate('');
-        $this->assertEquals('Este valor não deveria ser vazio.', $violations[0]->getMessage());
+        $this->assertEquals('Este valor não deveria ser vazio.', $violations->get(0)->getMessage());
     }
 }

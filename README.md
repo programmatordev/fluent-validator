@@ -24,7 +24,7 @@ offering an easy-to-use and intuitive API to validate user input or other data i
   - [validate](#validate)
   - [assert](#assert)
   - [isValid](#isvalid)
-  - [getConstraints](#getconstraints)
+  - [toArray](#toarray)
   - [addNamespace](#addnamespace)
   - [setTranslator](#settranslator)
 - [Custom Constraints](#custom-constraints)
@@ -154,13 +154,13 @@ if (!Validator::email()->isValid($email)) {
 }
 ```
 
-### `getConstraints`
+### `toArray`
 
 ```php
 use Symfony\Component\Validator\Constraint;
 
 /** @return Constraint[] */
-getConstraints(): array
+toArray(): array
 ```
 
 Returns an array with all added constraints.
@@ -168,7 +168,7 @@ Returns an array with all added constraints.
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
 
-$constraints = Validator::notBlank()->email()->getConstraints();
+$constraints = Validator::notBlank()->email()->toArray();
 ```
 
 It is useful for `Composite` constraints (i.e., a constraint that is composed of other constraints) 
@@ -180,7 +180,7 @@ use ProgrammatorDev\FluentValidator\Validator;
 // validate that array should have at least one value
 // and each value should be between 0 and 100
 $errors = Validator::count(min: 1)
-    ->all(Validator::range(min: 0, max: 100)->getConstraints())
+    ->all(Validator::range(min: 0, max: 100)->toArray())
     ->validate($value);
 ```
 
