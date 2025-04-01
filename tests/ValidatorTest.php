@@ -67,9 +67,9 @@ class ValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->isValid(18));
     }
 
-    public function testGetConstraints(): void
+    public function testToArray(): void
     {
-        $constraints = $this->validator->getConstraints();
+        $constraints = $this->validator->toArray();
 
         $this->assertInstanceOf(NotBlank::class, $constraints[0]);
         $this->assertInstanceOf(GreaterThanOrEqual::class, $constraints[1]);
