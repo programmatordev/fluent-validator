@@ -87,7 +87,7 @@ class Validator
         return $violations->count() === 0;
     }
 
-    public function getConstraints(): array
+    public function toArray(): array
     {
         return $this->constraints;
     }
