@@ -17,6 +17,7 @@ class ConstraintFactory
         foreach ($this->namespaces as $namespace) {
             $class = sprintf('%s\%s', $namespace, $constraintName);
 
+            // if class exists and is an instance of Constraint
             if (class_exists($class) && is_a($class, Constraint::class, true)) {
                 return new $class(...$arguments);
             }

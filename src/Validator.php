@@ -69,10 +69,11 @@ class Validator
         $violations = $this->validate($value, $name, $groups);
 
         if ($violations->count() > 0) {
-            $message = $violations->get(0)->getMessage();
+            $violation = $violations->get(0);
+            $message = $violation->getMessage();
 
             if ($name !== null) {
-                $message = sprintf('%s: %s', $name, $message);
+                $message = sprintf('%s: %s', $violation->getPropertyPath(), $message);
             }
 
             throw new ValidationFailedException($message, $value, $violations);
