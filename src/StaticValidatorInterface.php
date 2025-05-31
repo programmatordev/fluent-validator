@@ -41,7 +41,7 @@ interface StaticValidatorInterface
         callable|array|string|null $callback = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function cardScheme(
@@ -49,7 +49,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function cascade(
@@ -113,7 +113,7 @@ interface StaticValidatorInterface
         ?string $divisibleByMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function country(
@@ -151,11 +151,12 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function disableAutoMapping(
         ?array $options = null,
+        mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function divisibleBy(
@@ -164,7 +165,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function email(
@@ -178,6 +179,7 @@ interface StaticValidatorInterface
 
     public static function enableAutoMapping(
         ?array $options = null,
+        mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function equalTo(
@@ -186,7 +188,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function expression(
@@ -195,7 +197,7 @@ interface StaticValidatorInterface
         ?array $values = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
         ?bool $negate = null,
     ): ChainedValidatorInterface&Validator;
 
@@ -232,6 +234,9 @@ interface StaticValidatorInterface
         mixed $payload = null,
         array|string|null $extensions = null,
         ?string $extensionsMessage = null,
+        ?string $filenameCharset = null,
+        ?string $filenameCountUnit = null,
+        ?string $filenameCharsetMessage = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function greaterThan(
@@ -240,7 +245,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function greaterThanOrEqual(
@@ -249,7 +254,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function hostname(
@@ -273,7 +278,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function image(
@@ -323,6 +328,11 @@ interface StaticValidatorInterface
         ?string $corruptedMessage = null,
         ?array $groups = null,
         mixed $payload = null,
+        array|string|null $extensions = null,
+        ?string $extensionsMessage = null,
+        ?string $filenameCharset = null,
+        ?string $filenameCountUnit = null,
+        ?string $filenameCharsetMessage = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function ip(
@@ -363,7 +373,7 @@ interface StaticValidatorInterface
         ?string $bothIsbnMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function isin(
@@ -410,7 +420,7 @@ interface StaticValidatorInterface
         ?string $charsetMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function lessThan(
@@ -419,7 +429,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function lessThanOrEqual(
@@ -428,7 +438,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function locale(
@@ -505,7 +515,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function notIdenticalTo(
@@ -514,7 +524,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function notNull(
@@ -575,7 +585,7 @@ interface StaticValidatorInterface
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function required(
@@ -605,11 +615,12 @@ interface StaticValidatorInterface
         ?bool $intlCompatible = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function traverse(
         array|bool|null $traverse = null,
+        mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function type(
@@ -617,7 +628,7 @@ interface StaticValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        array $options = [],
+        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function ulid(
@@ -636,6 +647,7 @@ interface StaticValidatorInterface
         mixed $payload = null,
         array|string|null $fields = null,
         ?string $errorPath = null,
+        ?bool $stopOnFirstError = null,
     ): ChainedValidatorInterface&Validator;
 
     public static function url(
@@ -679,12 +691,13 @@ interface StaticValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public static function when(
-        \Symfony\Component\ExpressionLanguage\Expression|array|string $expression,
+        \Symfony\Component\ExpressionLanguage\Expression|Closure|array|string $expression,
         \Symfony\Component\Validator\Constraint|array|null $constraints = null,
         ?array $values = null,
         ?array $groups = null,
          $payload = null,
-        array $options = [],
+        ?array $options = null,
+        \Symfony\Component\Validator\Constraint|array $otherwise = [],
     ): ChainedValidatorInterface&Validator;
 
     public static function wordCount(
