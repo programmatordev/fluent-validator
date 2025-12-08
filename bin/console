@@ -11,8 +11,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new Application();
 
-$app->add(new CreateStaticValidatorInterfaceCommand());
-$app->add(new CreateChainedValidatorInterfaceCommand());
-$app->add(new CreateValidatorInterfacesCommand());
+$app->addCommand(new CreateStaticValidatorInterfaceCommand());
+$app->addCommand(new CreateChainedValidatorInterfaceCommand());
+$app->addCommand(new CreateValidatorInterfacesCommand());
 
 $app->run();
