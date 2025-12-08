@@ -5,13 +5,13 @@ namespace ProgrammatorDev\FluentValidator;
 interface ChainedValidatorInterface
 {
     public function all(
-        mixed $constraints = null,
+        \Symfony\Component\Validator\Constraint|array|null $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
     public function atLeastOneOf(
-        mixed $constraints = null,
+        \Symfony\Component\Validator\Constraint|array|null $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
         ?string $message = null,
@@ -38,10 +38,9 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function callback(
-        callable|array|string|null $callback = null,
+        callable|string|null $callback = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function cardScheme(
@@ -49,12 +48,10 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function cascade(
         array|string|null $exclude = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function charset(
@@ -65,7 +62,7 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function choice(
-        array|string $options = [],
+        array|string|null $options = null,
         ?array $choices = null,
         callable|string|null $callback = null,
         ?bool $multiple = null,
@@ -93,7 +90,7 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function collection(
-        mixed $fields = null,
+        ?array $fields = null,
         ?array $groups = null,
         mixed $payload = null,
         ?bool $allowExtraFields = null,
@@ -103,7 +100,7 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function count(
-        array|int|null $exactly = null,
+        ?int $exactly = null,
         ?int $min = null,
         ?int $max = null,
         ?int $divisibleBy = null,
@@ -113,7 +110,6 @@ interface ChainedValidatorInterface
         ?string $divisibleByMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function country(
@@ -129,7 +125,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
          $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function currency(
@@ -147,11 +142,10 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function dateTime(
-        array|string|null $format = null,
+        ?string $format = null,
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function disableAutoMapping(
@@ -165,7 +159,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function email(
@@ -188,11 +181,10 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function expression(
-        \Symfony\Component\ExpressionLanguage\Expression|array|string|null $expression,
+        \Symfony\Component\ExpressionLanguage\Expression|string|null $expression,
         ?string $message = null,
         ?array $values = null,
         ?array $groups = null,
@@ -245,7 +237,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function greaterThanOrEqual(
@@ -254,7 +245,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function hostname(
@@ -278,7 +268,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function image(
@@ -366,14 +355,13 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function isbn(
-        array|string|null $type = null,
+        ?string $type = null,
         ?string $message = null,
         ?string $isbn10Message = null,
         ?string $isbn13Message = null,
         ?string $bothIsbnMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function isin(
@@ -408,7 +396,7 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function length(
-        array|int|null $exactly = null,
+        ?int $exactly = null,
         ?int $min = null,
         ?int $max = null,
         ?string $charset = null,
@@ -420,7 +408,6 @@ interface ChainedValidatorInterface
         ?string $charsetMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function lessThan(
@@ -429,7 +416,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function lessThanOrEqual(
@@ -438,7 +424,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function locale(
@@ -515,7 +500,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function notIdenticalTo(
@@ -524,7 +508,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function notNull(
@@ -535,7 +518,7 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function optional(
-        mixed $options = null,
+        \Symfony\Component\Validator\Constraint|array $constraints = [],
         ?array $groups = null,
         mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
@@ -578,24 +561,23 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function regex(
-        array|string|null $pattern,
+        ?string $pattern,
         ?string $message = null,
         ?string $htmlPattern = null,
         ?bool $match = null,
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function required(
-        mixed $options = null,
+        \Symfony\Component\Validator\Constraint|array $constraints = [],
         ?array $groups = null,
         mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
     public function sequentially(
-        mixed $constraints = null,
+        \Symfony\Component\Validator\Constraint|array|null $constraints = null,
         ?array $groups = null,
         mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
@@ -609,17 +591,16 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function timezone(
-        array|int|null $zone = null,
+        ?int $zone = null,
         ?string $message = null,
         ?string $countryCode = null,
         ?bool $intlCompatible = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function traverse(
-        array|bool|null $traverse = null,
+        ?bool $traverse = null,
         mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
@@ -628,7 +609,6 @@ interface ChainedValidatorInterface
         ?string $message = null,
         ?array $groups = null,
         mixed $payload = null,
-        ?array $options = null,
     ): ChainedValidatorInterface&Validator;
 
     public function ulid(
@@ -653,7 +633,7 @@ interface ChainedValidatorInterface
     public function url(
         ?array $options = null,
         ?string $message = null,
-        ?array $protocols = null,
+        array|string|null $protocols = null,
         ?bool $relativeProtocol = null,
         ?callable $normalizer = null,
         ?array $groups = null,
@@ -679,6 +659,58 @@ interface ChainedValidatorInterface
         ?bool $traverse = null,
     ): ChainedValidatorInterface&Validator;
 
+    public function video(
+        string|int|null $maxSize = null,
+        ?bool $binaryFormat = null,
+        array|string|null $mimeTypes = null,
+        ?int $filenameMaxLength = null,
+        ?int $minWidth = null,
+        ?int $maxWidth = null,
+        ?int $maxHeight = null,
+        ?int $minHeight = null,
+        int|float|null $maxRatio = null,
+        int|float|null $minRatio = null,
+        int|float|null $minPixels = null,
+        int|float|null $maxPixels = null,
+        ?bool $allowSquare = null,
+        ?bool $allowLandscape = null,
+        ?bool $allowPortrait = null,
+        ?array $allowedCodecs = null,
+        ?array $allowedContainers = null,
+        ?string $notFoundMessage = null,
+        ?string $notReadableMessage = null,
+        ?string $maxSizeMessage = null,
+        ?string $mimeTypesMessage = null,
+        ?string $disallowEmptyMessage = null,
+        ?string $filenameTooLongMessage = null,
+        ?string $uploadIniSizeErrorMessage = null,
+        ?string $uploadFormSizeErrorMessage = null,
+        ?string $uploadPartialErrorMessage = null,
+        ?string $uploadNoFileErrorMessage = null,
+        ?string $uploadNoTmpDirErrorMessage = null,
+        ?string $uploadCantWriteErrorMessage = null,
+        ?string $uploadExtensionErrorMessage = null,
+        ?string $uploadErrorMessage = null,
+        ?string $sizeNotDetectedMessage = null,
+        ?string $maxWidthMessage = null,
+        ?string $minWidthMessage = null,
+        ?string $maxHeightMessage = null,
+        ?string $minHeightMessage = null,
+        ?string $minPixelsMessage = null,
+        ?string $maxPixelsMessage = null,
+        ?string $maxRatioMessage = null,
+        ?string $minRatioMessage = null,
+        ?string $allowSquareMessage = null,
+        ?string $allowLandscapeMessage = null,
+        ?string $allowPortraitMessage = null,
+        ?string $corruptedMessage = null,
+        ?string $multipleVideoStreamsMessage = null,
+        ?string $unsupportedCodecMessage = null,
+        ?string $unsupportedContainerMessage = null,
+        ?array $groups = null,
+        mixed $payload = null,
+    ): ChainedValidatorInterface&Validator;
+
     public function week(
         ?string $min = null,
         ?string $max = null,
@@ -691,7 +723,7 @@ interface ChainedValidatorInterface
     ): ChainedValidatorInterface&Validator;
 
     public function when(
-        \Symfony\Component\ExpressionLanguage\Expression|Closure|array|string $expression,
+        \Symfony\Component\ExpressionLanguage\Expression|Closure|string $expression,
         \Symfony\Component\Validator\Constraint|array|null $constraints = null,
         ?array $values = null,
         ?array $groups = null,
