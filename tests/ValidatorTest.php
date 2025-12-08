@@ -27,7 +27,7 @@ class ValidatorTest extends AbstractTestCase
     public function testConstraintThatIsInvalid(): void
     {
         // NotBlankValidator class exists in "Symfony\Component\Validator\Constraints" namespace
-        // but throws error because it is not an instance of Constraint
+        // but throws an error because it is not an instance of Constraint
         $this->expectException(NoSuchConstraintException::class);
         Validator::notBlankValidator();
     }
@@ -86,13 +86,13 @@ class ValidatorTest extends AbstractTestCase
 
     public function testSetTranslator(): void
     {
-        // by default, error is in English
+        // by default, the error is in English
         $violations = $this->validator->validate('');
         $this->assertEquals('This value should not be blank.', $violations->get(0)->getMessage());
 
         // set translator and then try again
         Validator::setTranslator(new Translator('pt'));
-        // now error is in Portuguese
+        // now the error is in Portuguese
         $violations = $this->validator->validate('');
         $this->assertEquals('Este valor não deveria ser vazio.', $violations->get(0)->getMessage());
     }

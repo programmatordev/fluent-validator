@@ -25,8 +25,8 @@ class CreateChainedValidatorInterfaceCommand extends Command
         $packagePath = InstalledVersions::getInstallPath('symfony/validator');
         $constraintsPath = sprintf('%s/Constraints', $packagePath);
         $classes = Lister::instantiatableClassesInDirectory($constraintsPath);
-
         $file = new InterfaceWriter('ChainedValidatorInterface');
+
         $file->writeInterfaceStart();
 
         foreach ($classes as $class) {
