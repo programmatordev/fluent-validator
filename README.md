@@ -7,12 +7,15 @@
 A [Symfony Validator](https://symfony.com/doc/current/validation.html) wrapper that enables fluent-style validation for raw values, 
 offering an easy-to-use and intuitive API to validate user input or other data in a concise and readable manner.
 
+> [!NOTE]
+> This library will always (try to) be in sync with the latest Symfony Validator version.
+
 ## Features
 
 - 🌊 **Fluent-style validation:** Chain validation methods for better readability and flow.
 - 🤘 **Constraints autocompletion:** Enables IDE autocompletion for available constraints.
 - 🔥 **Three validation methods:** Use `validate`, `assert`, or `isValid` based on the context (i.e., collect errors or throw exceptions).
-- ⚙️ **Custom constraints:** Easily integrate custom validation logic with Symfony's Validator system.
+- ⚙️ **Custom constraints:** Integrate custom validation logic with Symfony's Validator system.
 - 💬 **Translations support:** Translate validation error messages into multiple languages.
 
 ## Table of Contents
@@ -32,7 +35,7 @@ offering an easy-to-use and intuitive API to validate user input or other data i
 
 ## Requirements
 
-- PHP 8.2 or higher.
+- PHP 8.4 or higher.
 
 ## Installation
 
@@ -60,7 +63,7 @@ if ($errors->count() > 0) {
 }
 ```
 
-Constraints autocompletion is available in IDEs like PhpStorm. 
+Constraint autocompletion is available in IDEs like PhpStorm. 
 The method names match Symfony constraints but with a lowercase first letter:
 
 - `NotBlank` => `notBlank`
@@ -124,10 +127,10 @@ try {
     Validator::notBlank()->email()->assert($email);
 }
 catch (ValidationFailedException $exception) {
-    // exception message will always be the first error thrown
+    // the exception message will always be the first error thrown
     $message = $exception->getMessage();
     // value that failed validation
-    $value = $exception->getInvalidValue();
+    $invalidValue = $exception->getInvalidValue();
     // get access to all errors
     // returns a ConstraintViolationList object like in the validate method
     $errors = $exception->getViolations();
@@ -177,7 +180,7 @@ and keeps the fluent-style validation:
 ```php
 use ProgrammatorDev\FluentValidator\Validator;
 
-// validate that array should have at least one value
+// validate that the array should have at least one value
 // and each value should be between 0 and 100
 $errors = Validator::count(min: 1)
     ->all(Validator::range(min: 0, max: 100)->toArray())

@@ -45,7 +45,7 @@ class Validator
         return $this;
     }
 
-    public function validate(mixed $value, ?string $name = null, string|GroupSequence|array|null $groups = null): ConstraintViolationListInterface
+    public function validate(mixed $value, ?string $name = null, array|null|string|GroupSequence $groups = null): ConstraintViolationListInterface
     {
         $builder = Validation::createValidatorBuilder();
 
@@ -64,7 +64,7 @@ class Validator
         return $context->getViolations();
     }
 
-    public function assert(mixed $value, ?string $name = null, string|GroupSequence|array|null $groups = null): void
+    public function assert(mixed $value, ?string $name = null, array|null|string|GroupSequence $groups = null): void
     {
         $violations = $this->validate($value, $name, $groups);
 
@@ -80,7 +80,7 @@ class Validator
         }
     }
 
-    public function isValid(mixed $value, string|GroupSequence|array|null $groups = null): bool
+    public function isValid(mixed $value, array|null|string|GroupSequence $groups = null): bool
     {
         $violations = $this->validate($value, groups: $groups);
 
