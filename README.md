@@ -21,6 +21,7 @@ offering an easy-to-use and intuitive API to validate user input or other data i
 ## Table of Contents
 
 - [Installation](#installation)
+- [When to use it](#when-to-use-it)
 - [Usage](#usage)
 - [Constraints](#constraints)
 - [Methods](#methods)
@@ -30,6 +31,7 @@ offering an easy-to-use and intuitive API to validate user input or other data i
   - [toArray](#toarray)
   - [addNamespace](#addnamespace)
   - [setTranslator](#settranslator)
+  - [reset](#reset)
 - [Custom Constraints](#custom-constraints)
 - [Translations](#translations)
 
@@ -44,6 +46,13 @@ Install via [Composer](https://getcomposer.org/):
 ```bash
 composer require programmatordev/fluent-validator
 ```
+
+## When to use it
+
+Use Fluent Validator when you want Symfony Validator constraints for raw values without setting up object metadata, attributes, forms, or a larger validation layer.
+It is useful for small input checks, command arguments, request fragments, webhook payload values, configuration values, and library code.
+
+This package does not replace Symfony Validator. It wraps Symfony Validator and keeps its constraints, violation objects, groups, translations, and custom constraint model.
 
 ## Usage
 
@@ -63,7 +72,33 @@ if ($errors->count() > 0) {
 }
 ```
 
+Use `assert` when invalid values should stop the current flow:
+
+```php
+use ProgrammatorDev\FluentValidator\Exception\ValidationFailedException;
+use ProgrammatorDev\FluentValidator\Validator;
+
+try {
+    Validator::notBlank()->email()->assert($email, 'email');
+}
+catch (ValidationFailedException $exception) {
+    $message = $exception->getMessage();
+    // "email: This value is not a valid email address."
+}
+```
+
+Use `isValid` when you only need a boolean:
+
+```php
+use ProgrammatorDev\FluentValidator\Validator;
+
+if (!Validator::url()->isValid($website)) {
+    // handle invalid URL
+}
+```
+
 Constraint autocompletion is available in IDEs like PhpStorm. 
+The suggested methods are generated from the installed Symfony Validator constraints.
 The method names match Symfony constraints but with a lowercase first letter:
 
 - `NotBlank` => `notBlank`
@@ -76,6 +111,20 @@ For all available constraints, check the [Constraints](#constraints) section.
 For all available methods, check the [Methods](#methods) section.
 
 There is also a section for [Custom Constraints](#custom-constraints) and [Translations](#translations).
+
+### Groups
+
+Validation groups work the same way as in Symfony Validator:
+
+```php
+use ProgrammatorDev\FluentValidator\Validator;
+
+$validator = Validator::notBlank(groups: ['Default'])
+    ->email(groups: ['registration']);
+
+$validator->isValid('invalid-email', groups: ['Default']); // true
+$validator->isValid('invalid-email', groups: ['registration']); // false
+```
 
 ## Constraints
 
@@ -208,6 +257,15 @@ setTranslator(?TranslatorInterface $translator): void
 Used to add a translator for validation error message translations.
 
 Check the [Translations](#translations) section.
+
+### `reset`
+
+```php
+reset(): void
+```
+
+Clears globally registered custom constraint namespaces and translator configuration.
+Useful when changing global validator configuration in tests, workers, or other long-running PHP processes.
 
 ## Custom Constraints
 

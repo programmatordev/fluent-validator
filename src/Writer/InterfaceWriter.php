@@ -6,9 +6,14 @@ class InterfaceWriter
 {
     private \SplFileObject $file;
 
-    public function __construct(private readonly string $interfaceName)
+    public function __construct(
+        private readonly string $interfaceName,
+        ?string $outputDirectory = null,
+    )
     {
-        $filename = sprintf('src/%s.php', $this->interfaceName);
+        $outputDirectory ??= dirname(__DIR__);
+        $filename = sprintf('%s/%s.php', rtrim($outputDirectory, '/'), $this->interfaceName);
+
         $this->file = new \SplFileObject($filename, 'w');
     }
 
@@ -100,10 +105,6 @@ class InterfaceWriter
 
     private function formatValue(mixed $value): string
     {
-        if (is_string($value)) {
-            return sprintf("'%s'", $value);
-        }
-
         if ($value === []) {
             return '[]';
         }
@@ -112,14 +113,6 @@ class InterfaceWriter
             return 'null';
         }
 
-        if ($value === false) {
-            return 'false';
-        }
-
-        if ($value === true) {
-            return 'true';
-        }
-
-        return (string) $value;
+        return var_export($value, true);
     }
 }
