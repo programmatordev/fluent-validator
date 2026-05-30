@@ -19,9 +19,18 @@ class ValidatorTest extends AbstractTestCase
     {
         parent::setUp();
 
+        Validator::reset();
+
         $this->validator = Validator::notBlank()
             ->greaterThanOrEqual(18)
             ->lessThan(25);
+    }
+
+    protected function tearDown(): void
+    {
+        Validator::reset();
+
+        parent::tearDown();
     }
 
     public function testConstraintThatIsInvalid(): void
@@ -102,6 +111,17 @@ class ValidatorTest extends AbstractTestCase
         $this->assertTrue(Validator::containsAlphanumeric()->isValid('v4l1d'));
     }
 
+    public function testResetClearsCustomConstraintNamespaces(): void
+    {
+        Validator::addNamespace('ProgrammatorDev\FluentValidator\Test\Fixtures\Constraint');
+        $this->assertTrue(Validator::containsAlphanumeric()->isValid('v4l1d'));
+
+        Validator::reset();
+
+        $this->expectException(NoSuchConstraintException::class);
+        Validator::containsAlphanumeric();
+    }
+
     public function testSetTranslator(): void
     {
         // by default, the error is in English
@@ -113,5 +133,17 @@ class ValidatorTest extends AbstractTestCase
         // now the error is in Portuguese
         $violations = $this->validator->validate('');
         $this->assertEquals('Este valor não deveria ser vazio.', $violations->get(0)->getMessage());
+    }
+
+    public function testResetClearsTranslator(): void
+    {
+        Validator::setTranslator(new Translator('pt'));
+        $violations = $this->validator->validate('');
+        $this->assertEquals('Este valor não deveria ser vazio.', $violations->get(0)->getMessage());
+
+        Validator::reset();
+
+        $violations = $this->validator->validate('');
+        $this->assertEquals('This value should not be blank.', $violations->get(0)->getMessage());
     }
 }

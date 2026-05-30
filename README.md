@@ -30,6 +30,7 @@ offering an easy-to-use and intuitive API to validate user input or other data i
   - [toArray](#toarray)
   - [addNamespace](#addnamespace)
   - [setTranslator](#settranslator)
+  - [reset](#reset)
 - [Custom Constraints](#custom-constraints)
 - [Translations](#translations)
 
@@ -208,6 +209,14 @@ setTranslator(?TranslatorInterface $translator): void
 Used to add a translator for validation error message translations.
 
 Check the [Translations](#translations) section.
+
+### `reset`
+
+```php
+reset(): void
+```
+
+Clears globally registered custom constraint namespaces and translator configuration.
 
 ## Custom Constraints
 
