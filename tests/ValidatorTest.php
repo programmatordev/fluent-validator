@@ -3,6 +3,7 @@
 namespace ProgrammatorDev\FluentValidator\Test;
 
 use ProgrammatorDev\FluentValidator\Exception\NoSuchConstraintException;
+use ProgrammatorDev\FluentValidator\Exception\NoSuchTranslationException;
 use ProgrammatorDev\FluentValidator\Exception\ValidationFailedException;
 use ProgrammatorDev\FluentValidator\Translator\Translator;
 use ProgrammatorDev\FluentValidator\Validator;
@@ -133,6 +134,14 @@ class ValidatorTest extends AbstractTestCase
         // now the error is in Portuguese
         $violations = $this->validator->validate('');
         $this->assertEquals('Este valor não deveria ser vazio.', $violations->get(0)->getMessage());
+    }
+
+    public function testSetTranslatorThatDoesNotExist(): void
+    {
+        $this->expectException(NoSuchTranslationException::class);
+        $this->expectExceptionMessage('Translation for locale "zz" was not found.');
+
+        new Translator('zz');
     }
 
     public function testResetClearsTranslator(): void
