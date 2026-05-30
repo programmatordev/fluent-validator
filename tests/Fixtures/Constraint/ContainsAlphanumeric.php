@@ -1,6 +1,6 @@
 <?php
 
-namespace ProgrammatorDev\FluentValidator\Test\Constraint;
+namespace ProgrammatorDev\FluentValidator\Test\Fixtures\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 

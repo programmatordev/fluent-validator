@@ -78,7 +78,7 @@ class ValidatorTest extends AbstractTestCase
 
     public function testCustomConstraint(): void
     {
-        Validator::addNamespace('ProgrammatorDev\FluentValidator\Test\Constraint');
+        Validator::addNamespace('ProgrammatorDev\FluentValidator\Test\Fixtures\Constraint');
 
         $this->assertFalse(Validator::containsAlphanumeric()->isValid('!'));
         $this->assertTrue(Validator::containsAlphanumeric()->isValid('v4l1d'));
