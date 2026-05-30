@@ -742,6 +742,17 @@ interface StaticValidatorInterface
         mixed $payload = null,
     ): ChainedValidatorInterface&Validator;
 
+    public static function xml(
+        string $formatMessage = 'This value is not valid XML.',
+        string $schemaMessage = 'This value does not conform to the expected XSD schema.',
+        string $tooLargeMessage = 'This XML payload is too large ({{ size }} bytes): it exceeds the limit of {{ limit }} bytes.',
+        ?string $schemaPath = null,
+        int $schemaFlags = 0,
+        int $maxSize = 5242880,
+        ?array $groups = null,
+        mixed $payload = null,
+    ): ChainedValidatorInterface&Validator;
+
     public static function yaml(
         string $message = 'This value is not valid YAML.',
         int $flags = 0,

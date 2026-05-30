@@ -13,14 +13,14 @@
     ],
     "require": {
         "php": ">=8.4",
-        "symfony/config": "^8.0",
-        "symfony/translation": "^8.0",
-        "symfony/validator": "^8.0"
+        "symfony/config": "^8.1",
+        "symfony/translation": "^8.1",
+        "symfony/validator": "^8.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5",
-        "symfony/console": "^8.0",
-        "symfony/var-dumper": "^8.0",
+        "symfony/console": "^8.1",
+        "symfony/var-dumper": "^8.1",
         "wyrihaximus/list-classes-in-directory": "^1.7"
     },
     "autoload": {

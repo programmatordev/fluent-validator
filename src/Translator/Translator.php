@@ -3,6 +3,7 @@
 namespace ProgrammatorDev\FluentValidator\Translator;
 
 use Composer\InstalledVersions;
+use ProgrammatorDev\FluentValidator\Exception\NoSuchTranslationException;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -15,6 +16,10 @@ readonly class Translator implements TranslatorInterface
         // make sure we always have the correct path for the translation files
         $packagePath = InstalledVersions::getInstallPath('symfony/validator');
         $resourcePath = sprintf('%s/Resources/translations/validators.%s.xlf', $packagePath, $this->locale);
+
+        if (!is_file($resourcePath)) {
+            throw new NoSuchTranslationException($this->locale);
+        }
 
         $this->translator = new \Symfony\Component\Translation\Translator($this->locale);
         $this->translator->addLoader('xlf', new XliffFileLoader());

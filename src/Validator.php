@@ -14,7 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class Validator
 {
     /** @var Constraint[] */
-    private array $constraints;
+    private array $constraints = [];
 
     /** @var string[] */
     private static array $namespaces = [];
@@ -99,11 +99,21 @@ class Validator
 
     public static function addNamespace(string $namespace): void
     {
+        if (in_array($namespace, self::$namespaces, true)) {
+            return;
+        }
+
         self::$namespaces[] = $namespace;
     }
 
     public static function setTranslator(?TranslatorInterface $translator): void
     {
         self::$translator = $translator;
+    }
+
+    public static function reset(): void
+    {
+        self::$namespaces = [];
+        self::$translator = null;
     }
 }
