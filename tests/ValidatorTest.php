@@ -67,16 +67,56 @@ class ValidatorTest extends AbstractTestCase
         $this->assertCount(0, $violations);
     }
 
+    public function testValidateWithGroups(): void
+    {
+        $validator = Validator::notBlank(groups: ['Default'])
+            ->email(groups: ['registration']);
+
+        $violations = $validator->validate('invalid-email', groups: ['Default']);
+        $this->assertCount(0, $violations);
+
+        $violations = $validator->validate('invalid-email', groups: ['registration']);
+        $this->assertCount(1, $violations);
+    }
+
     public function testAssertFail(): void
     {
         $this->expectException(ValidationFailedException::class);
         $this->validator->assert(16);
     }
 
+    public function testAssertFailWithName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+        $this->expectExceptionMessage('age: This value should be greater than or equal to 18.');
+
+        $this->validator->assert(16, 'age');
+    }
+
     public function testAssertSuccess(): void
     {
         $this->validator->assert(18);
         $this->assertTrue(true);
+    }
+
+    public function testAssertWithGroups(): void
+    {
+        $validator = Validator::notBlank(groups: ['Default'])
+            ->email(groups: ['registration']);
+
+        $validator->assert('invalid-email', groups: ['Default']);
+        $this->assertTrue(true);
+    }
+
+    public function testAssertWithGroupsFail(): void
+    {
+        $validator = Validator::notBlank(groups: ['Default'])
+            ->email(groups: ['registration']);
+
+        $this->expectException(ValidationFailedException::class);
+        $this->expectExceptionMessage('This value is not a valid email address.');
+
+        $validator->assert('invalid-email', groups: ['registration']);
     }
 
     public function testIsValid(): void
@@ -88,6 +128,15 @@ class ValidatorTest extends AbstractTestCase
     public function testIsValidWithoutConstraints(): void
     {
         $this->assertTrue((new Validator())->isValid('anything'));
+    }
+
+    public function testIsValidWithGroups(): void
+    {
+        $validator = Validator::notBlank(groups: ['Default'])
+            ->email(groups: ['registration']);
+
+        $this->assertTrue($validator->isValid('invalid-email', groups: ['Default']));
+        $this->assertFalse($validator->isValid('invalid-email', groups: ['registration']));
     }
 
     public function testToArray(): void
