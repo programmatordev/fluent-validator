@@ -14,7 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class Validator
 {
     /** @var Constraint[] */
-    private array $constraints;
+    private array $constraints = [];
 
     /** @var string[] */
     private static array $namespaces = [];

@@ -49,6 +49,14 @@ class ValidatorTest extends AbstractTestCase
         $this->assertCount(0, $violations);
     }
 
+    public function testValidateWithoutConstraints(): void
+    {
+        $violations = (new Validator())->validate('anything');
+
+        $this->assertInstanceOf(ConstraintViolationList::class, $violations);
+        $this->assertCount(0, $violations);
+    }
+
     public function testAssertFail(): void
     {
         $this->expectException(ValidationFailedException::class);
@@ -67,6 +75,11 @@ class ValidatorTest extends AbstractTestCase
         $this->assertTrue($this->validator->isValid(18));
     }
 
+    public function testIsValidWithoutConstraints(): void
+    {
+        $this->assertTrue((new Validator())->isValid('anything'));
+    }
+
     public function testToArray(): void
     {
         $constraints = $this->validator->toArray();
@@ -74,6 +87,11 @@ class ValidatorTest extends AbstractTestCase
         $this->assertInstanceOf(NotBlank::class, $constraints[0]);
         $this->assertInstanceOf(GreaterThanOrEqual::class, $constraints[1]);
         $this->assertInstanceOf(LessThan::class, $constraints[2]);
+    }
+
+    public function testToArrayWithoutConstraints(): void
+    {
+        $this->assertSame([], (new Validator())->toArray());
     }
 
     public function testCustomConstraint(): void
